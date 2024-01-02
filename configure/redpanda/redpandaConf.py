@@ -16,7 +16,7 @@ listConfContent=[{'redpanda': \
                 'pandaproxy': {},\
                  'schema_registry': {}}]
 
-yaml_output = yaml.dump_all(data, sort_keys=False)
+yaml_output = yaml.dump_all(listConfContent, sort_keys=False)
 
 try:
     with open("/etc/redpanda/redpanda.yaml", "w") as file:
