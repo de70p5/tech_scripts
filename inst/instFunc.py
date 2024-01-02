@@ -48,7 +48,7 @@ def install_tomcat():
     # run_command("sudo systemctl start tomcat.service")
     run_command("sudo systemctl enable tomcat.service")
     #run_command(f"sudo ufw allow {tomcat_listen_port}")
-
+    run_command(f"sed -iE 's+CLASSPATH=\"$CLASSPATH\"\"$CATALINA_HOME\"/bin/bootstrap.jar+CLASSPATH=\"$CLASSPATH\"\"$CATALINA_HOME\"/bin/bootstrap.jar:$CATALINA_HOME/log4j2/lib/*:$CATALINA_HOME/log4j2/conf:$CATALINA_HOME/conf+' {tomcat_base_installation_path}/bin/catalina.sh")
 
 def install_git():
     run_command("sudo apt update")
@@ -93,6 +93,7 @@ def install_scylla():
     run_command("sudo sed -iE '/Description=/a\Before=tomcat.service haproxy.service' /lib/systemd/system/scylla-server.service")
     run_command("sudo sed -iE '/Before=tomcat.service haproxy.service/a\After=network.target' /lib/systemd/system/scylla-server.service")
     run_command("sudo systemctl daemon-reload")
+    run_command("sudo scylla_dev_mode_setup --developer-mode 1")
 
 def install_redpanda():
     run_command(f"curl -1sLf '{redpanda_gpg_key_url}' | gpg --dearmor | sudo tee /usr/share/keyrings/redpanda-redpanda-archive-keyring.gpg >/dev/null")
