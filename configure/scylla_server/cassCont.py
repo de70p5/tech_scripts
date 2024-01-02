@@ -1,3 +1,4 @@
+# cassandra content
 data="""#
 # cassandra-rackdc.properties
 #
