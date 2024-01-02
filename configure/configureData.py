@@ -2,8 +2,6 @@ def return_op(command):
     cmd_op=subprocess.run(command,text=True,shell=True,check=True,capture_output=True)
     return cmd_op.stdout.strip()
 
-node_private_ip=return_op("hostname -I")
-
 def run_command(command):
     print(f"Running command: {command}")
     subprocess.run(command, shell=True, check=True)

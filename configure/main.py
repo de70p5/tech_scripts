@@ -14,11 +14,14 @@ from mysql.mysqlVars import *
 from firewallRules import *
 
 # import functions
-from configure.configureData import scylla_config, mysql_config, redpanda_config, make_dirs, configure_hosts_file, config_firewall_rules
+from configure.configureData import *
+# scylla_config, mysql_config, redpanda_config, make_dirs, configure_hosts_file, config_firewall_rules, return_op
 
 import yaml
 import subprocess
 import datetime
+
+node_private_ip=return_op("hostname -I")
 
 if __name__=="__main__":
     scylla_config()
