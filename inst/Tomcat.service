@@ -1,0 +1,21 @@
+[Unit]
+Description=Tomcat 9 servlet container
+Before=haproxy.service
+After=network.target redpanda.service mysql@bootstrap.service scylla-server.service
+Requires=network.target redpanda.service mysql@bootstrap.service scylla-server.service
+
+[Service]
+Type=forking
+User=tomcat
+Group=tomcat
+Environment="JAVA_HOME={javaHomePath}"
+Environment="JAVA_OPTS=-Djava.security.egd=file:///dev/urandom -Djava.awt.headless=true"
+Environment="CATALINA_BASE={tomcatBaseInstallationPath}"
+Environment="CATALINA_HOME={tomcatBaseInstallationPath}"
+Environment="CATALINA_PID={tomcatBaseInstallationPath}/temp/tomcat.pid"
+Environment="CATALINA_OPTS=-Xms{minMemory}M -Xmx{maxMemory}M -server -XX:+UseParallelGC"
+ExecStart={tomcatBaseInstallationPath}/bin/startup.sh
+ExecStop={tomcatBaseInstallationPath}/bin/shutdown.sh
+
+[Install]
+WantedBy=multi-user.target

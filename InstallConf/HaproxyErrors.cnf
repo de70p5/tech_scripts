@@ -1,4 +1,4 @@
-error_files_content = {
+{
     "403.http": """HTTP/1.0 403 Forbidden
 Cache-Control: no-cache
 Connection: close

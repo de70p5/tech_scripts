@@ -1,0 +1,21 @@
+[Unit]
+Description=HAProxy Load Balancer
+Documentation=man:haproxy(1)
+After=network-online.target rsyslog.service redpanda.service mysql@bootstrap.service scylla-server.service tomcat.service
+Requires=network-online.target rsyslog.service redpanda.service mysql@bootstrap.service scylla-server.service tomcat.service
+
+[Service]
+User=haproxy
+Group=haproxy
+Environment=\"CONFIG={haproxyConfigFile}\" \"PIDFILE=/run/haproxy.pid\" \"EXTRAOPTS=-S /run/haproxy-master.sock\"
+ExecStartPre={haproxyBinPath} -Ws -f $CONFIG -c -q $EXTRAOPTS
+ExecStart={haproxyBinPath} -Ws -f $CONFIG -p $PIDFILE $EXTRAOPTS
+ExecReload={haproxyBinPath} -Ws -f $CONFIG -c -q $EXTRAOPTS
+ExecReload=/bin/kill -USR2 $MAINPID
+KillMode=mixed
+Restart=always
+SuccessExitStatus=143
+Type=notify
+
+[Install]
+WantedBy=multi-user.target
