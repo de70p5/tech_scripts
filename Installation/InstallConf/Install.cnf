@@ -1,3 +1,4 @@
+[java]
 hostname = rupid-in-pod1a-node01
 jdkDriveId = 1Vhv1aKynSCoGLDUEhSWCEWS3gjATbFFT
 jdkVersion = 11.0.12
@@ -31,4 +32,3 @@ scyllaList = http://downloads.scylladb.com/deb/debian/scylla-5.0.list
 nwIfName = ens5
 redpandaVersion = 22.3.25-1
 redpandaGpgKeyUrl = https://dl.redpanda.com/public/redpanda/gpg.988A7B0A4918BC85.key
-

@@ -143,7 +143,7 @@ start_time = datetime.now()
 
 basePath=os.getcwd()
 fileArguments=sys.argv[1:]
-installConfFile, haproxyErrorDict, haproxyConfFile, haproxyServiceFile, tomcatServiceFile = [basePath+i for i in fileArguments]
+installConfFile, haproxyErrorsFile, haproxyConfFile, haproxyServiceFile, tomcatServiceFile = [basePath+i for i in fileArguments]
 for i in installConfFile.readlines():
     exec(f"{i.split('=')[0]} = \"{i.split('=')[1].strip()}\"")
 
